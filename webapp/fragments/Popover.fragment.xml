@@ -1,0 +1,138 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" id="chatBotFragment">
+	
+	<ResponsivePopover
+		id="botPopover"
+		title="Test"
+		class="sapUiPopupWithPadding clsBotContent"
+		placement="VerticalPreferredTop"
+		offsetX="10"
+		contentHeight="90%"
+		contentWidth="35%"
+		showHeader="true"
+		showCloseButton="true"
+		showArrow="false">
+		<customHeader>
+			<Bar id="idWelcomeHeader" class="chatBoxHeader">
+				<contentLeft>
+					<Label id="idHeaderLvl" text="MyChatBOT" class="chatBoxHeaderLabel"/>
+					<Image id="idHeaderIco" tooltip="robot" visible="false" src="images/robot.png" />
+				</contentLeft>
+				<contentMiddle/>
+				<contentRight>
+					<HBox id="idCmnBtn">
+						<Button class="clsBtn" tooltip="Settings" icon="sap-icon://action-settings" press="handleSettingsButton" />
+						<Button class="clsBtn" tooltip="Close" icon="sap-icon://sys-cancel-2" press="handleCloseButton" />
+					</HBox>
+					<!--<HBox id="idSetBtn" visible="false">
+						<Button class="clsBtn" tooltip="Save Settings" icon="sap-icon://save" press="saveSettings" />
+						<Button class="clsBtn" tooltip="Cancel Settings" icon="sap-icon://sys-cancel-2" press="cancelSettings" />
+					</HBox>-->
+					
+					
+					
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content height="100%">
+			<FlexBox 
+				id="welcomeContainer"
+				alignItems="Baseline"
+				justifyContent="Start"
+				wrap="Wrap"
+				height="90%"
+				width="100%"
+				alignContent="Center">
+				
+				<l:VerticalLayout class="sapUiContentPadding">
+					<Image class="clsWelcomeBotImg" tooltip="Robot" src="images/robot.png" />
+					<Text class="clsWelcomeBotTxt" text="Hi there! I'm Kong, your virtual assistant. Thanks for bringing me alive. How can I help you?" />
+				</l:VerticalLayout>
+				
+			</FlexBox>
+			
+			<FlexBox 
+				id="chatWindowContainer"
+				alignItems="Baseline"
+				justifyContent="Start"
+				class="chatWindowContainer"
+				visible="false"
+				wrap="Wrap"
+				height="80%"
+				width="95%"
+				alignContent="Center">
+				<List id="list1" showNoData="false"/>
+			</FlexBox>
+			
+			<FlexBox 
+				id="settingWindowContainer"
+				alignItems="Baseline"
+				justifyContent="Start"
+				class="settingWindowContainer"
+				visible="false"
+				wrap="Wrap"
+				height="100%"
+				width="95%"
+				alignContent="Center">
+				
+				<l:VerticalLayout class="clsVLayout sapUiContentPadding">
+					<l:HorizontalLayout class="clsHLayout">
+						<Label text="Chat Audio" />
+						<Switch id="hasAudio" state="true">
+							<layoutData>
+								<FlexItemData growFactor="1" />
+							</layoutData>
+						</Switch>
+					</l:HorizontalLayout>
+					
+					<l:HorizontalLayout class="clsHLayout">
+						<Label text="Font Size" />
+						<HBox class="clsFontTypes">
+							<Image class="abc" tooltip="Small" src="images/font_small.png" />
+							<Image class="abc" tooltip="Normal" src="images/font_normal.png" />
+							<Image class="abc" tooltip="Large" src="images/font_large.png" />
+						</HBox>
+					</l:HorizontalLayout>
+					
+					<l:HorizontalLayout class="clsHLayout">
+						<Label text="Font Color" />
+						<ColorPalette colors="#292f36,#4ecdc4,#3a506b,#ffffff,red,yellow,green,blue,violet,darkgray" colorSelect="handleColorSelect" />
+					</l:HorizontalLayout>
+					
+					<!--<l:HorizontalLayout class="clsHLayout">
+						<Button tooltip="Save" icon="sap-icon://save" press="saveSettings" />
+					</l:HorizontalLayout>-->
+					
+				</l:VerticalLayout>
+				<!--<HBox class="chatTypeBox k-message-box">
+						<Icon class="clsMsgSnd" tooltip="Save" xmlns="sap.ui.core" src="sap-icon://save" press="saveSettings" />
+						<Icon class="clsMsgSnd" tooltip="Cancel" xmlns="sap.ui.core" src="sap-icon://cancel" />
+						<Icon class="clsMsgSnd" tooltip="Reset" xmlns="sap.ui.core" src="sap-icon://reset" />
+				</HBox>-->
+			</FlexBox>
+			
+			<HBox id="idScrollBox" visible="false" class="scrollOptBox k-scroll-box">
+				<Carousel showPageIndicator="false" loop="true">
+					<customLayout>
+						<CarouselLayout visiblePagesCount="4" />
+					</customLayout>
+					<pages>
+						<Button class="clsOptBtn" text="Option 1" press="parseOptText" />
+						<Button class="clsOptBtn" text="Option 2" press="parseOptText" />
+						<Button class="clsOptBtn" text="Option 3" press="parseOptText" />
+						<Button class="clsOptBtn" text="Option 4" press="parseOptText" />
+						<Button class="clsOptBtn" text="Option 5" press="parseOptText" />
+						<Button class="clsOptBtn" text="Option 6" press="parseOptText" />
+						<Button class="clsOptBtn" text="Option 7" press="parseOptText" />
+					</pages>
+				</Carousel>
+				
+			</HBox>
+			
+			<HBox id="idMsgSnd" class="chatTypeBox k-message-box">
+				<Input id="chat" placeholder="Your message..." change="parseText"></Input>
+				<Icon class="clsMsgSnd" tooltip="send" xmlns="sap.ui.core" src="sap-icon://paper-plane" />
+			</HBox>
+			
+		</content>
+	</ResponsivePopover>
+</core:FragmentDefinition>

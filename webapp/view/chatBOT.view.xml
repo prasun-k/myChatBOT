@@ -1,0 +1,16 @@
+<mvc:View controllerName="com.hcl.hclBOT.controller.chatBOT" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+			<Page id="page" title="{i18n>title}">
+				<footer>
+					<Bar>
+						<contentRight>
+							<ToolbarSpacer width=""/>
+							<Button class="clsBtnBOT" icon="images/robot.png" tooltip="BOT" press="onChatPress"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</App>
+	</Shell>
+</mvc:View>
