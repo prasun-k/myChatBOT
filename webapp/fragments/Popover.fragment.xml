@@ -20,7 +20,7 @@
 				<contentMiddle/>
 				<contentRight>
 					<HBox id="idCmnBtn">
-						<Button class="clsBtn" tooltip="Settings" icon="sap-icon://action-settings" press="handleSettingsButton" />
+						<Button class="clsBtn" id="settingbutton" tooltip="Settings" icon="sap-icon://action-settings" press="handleSettingsButton" />
 						<Button class="clsBtn" tooltip="Close" icon="sap-icon://sys-cancel-2" press="handleCloseButton" />
 					</HBox>
 					<!--<HBox id="idSetBtn" visible="false">
@@ -74,7 +74,7 @@
 				width="95%"
 				alignContent="Center">
 				
-				<l:VerticalLayout class="clsVLayout sapUiContentPadding">
+				<l:VerticalLayout class="clsVLayout sapUiContentPadding" id="switchid">
 					<l:HorizontalLayout class="clsHLayout">
 						<Label text="Chat Audio" />
 						<Switch id="hasAudio" state="true">
@@ -103,6 +103,7 @@
 					</l:HorizontalLayout>-->
 					
 				</l:VerticalLayout>
+					
 				<!--<HBox class="chatTypeBox k-message-box">
 						<Icon class="clsMsgSnd" tooltip="Save" xmlns="sap.ui.core" src="sap-icon://save" press="saveSettings" />
 						<Icon class="clsMsgSnd" tooltip="Cancel" xmlns="sap.ui.core" src="sap-icon://cancel" />

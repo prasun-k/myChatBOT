@@ -39,17 +39,47 @@ sap.ui.define([
 			this._oPopover.close();
 		},
 		handleSettingsButton: function (oEvent) {
-			sap.ui.getCore().byId("welcomeContainer").setVisible(false);
-	        sap.ui.getCore().byId("chatWindowContainer").setVisible(false);
-	        sap.ui.getCore().byId("settingWindowContainer").setVisible(true);
-	        
-	        //sap.ui.getCore().byId("idCmnBtn").setVisible(false);
-	        //sap.ui.getCore().byId("idSetBtn").setVisible(true);
-	        
-	        sap.ui.getCore().byId("idHeaderLvl").setVisible(false);
-	        sap.ui.getCore().byId("idHeaderIco").setVisible(true);
-	        sap.ui.getCore().byId("idScrollBox").setVisible(false);
-	        sap.ui.getCore().byId("idMsgSnd").setVisible(false);
+			var tooltip = sap.ui.getCore().byId("settingbutton")._getTooltip();
+			if(tooltip==='Settings')
+			{ //alert(tooltip);
+				sap.ui.getCore().byId("welcomeContainer").setVisible(false);
+		        sap.ui.getCore().byId("chatWindowContainer").setVisible(false);
+		        sap.ui.getCore().byId("settingWindowContainer").setVisible(true);
+		        
+		        //sap.ui.getCore().byId("idCmnBtn").setVisible(false);
+		        //sap.ui.getCore().byId("idSetBtn").setVisible(true);
+		        
+		        sap.ui.getCore().byId("idHeaderLvl").setVisible(false);
+		        sap.ui.getCore().byId("idHeaderIco").setVisible(true);
+		        sap.ui.getCore().byId("idScrollBox").setVisible(false);
+		        sap.ui.getCore().byId("idMsgSnd").setVisible(false);
+		        
+		        
+		        sap.ui.getCore().byId("switchid").setVisible(true);
+		        //sap.ui.getCore().byId("setback").setVisible(true);
+		        sap.ui.getCore().byId("settingbutton").setTooltip("back");
+		        sap.ui.getCore().byId("settingbutton").setIcon('sap-icon://nav-back');
+			}
+			else
+			{ //alert(tooltip);
+				sap.ui.getCore().byId("welcomeContainer").setVisible(true);
+		        sap.ui.getCore().byId("chatWindowContainer").setVisible(true);
+		        //sap.ui.getCore().byId("settingWindowContainer").setVisible(false);
+		        
+		        //sap.ui.getCore().byId("idCmnBtn").setVisible(false);
+		        //sap.ui.getCore().byId("idSetBtn").setVisible(true);
+		        
+		        sap.ui.getCore().byId("idHeaderLvl").setVisible(true);
+		        sap.ui.getCore().byId("idHeaderIco").setVisible(false);
+		        sap.ui.getCore().byId("idScrollBox").setVisible(true);
+		        sap.ui.getCore().byId("idMsgSnd").setVisible(true);
+		        sap.ui.getCore().byId("switchid").setVisible(false);
+
+		        sap.ui.getCore().byId("settingbutton").setTooltip("Settings");
+		        sap.ui.getCore().byId("settingbutton").setIcon('sap-icon://action-settings');
+	
+			}
+			
 	        
 		},
 		parseText: function (oEvent) {
