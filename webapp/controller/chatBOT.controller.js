@@ -57,6 +57,7 @@ sap.ui.define([
 		        
 		        sap.ui.getCore().byId("switchid").setVisible(true);
 		        //sap.ui.getCore().byId("setback").setVisible(true);
+		        sap.ui.getCore().byId("cancelbutton").setVisible(false);
 		        sap.ui.getCore().byId("settingbutton").setTooltip("back");
 		        sap.ui.getCore().byId("settingbutton").setIcon('sap-icon://nav-back');
 			}
@@ -69,12 +70,14 @@ sap.ui.define([
 		        //sap.ui.getCore().byId("idCmnBtn").setVisible(false);
 		        //sap.ui.getCore().byId("idSetBtn").setVisible(true);
 		        
+		        sap.ui.getCore().byId("statimg").setVisible(false);
+		        sap.ui.getCore().byId("stattext").setVisible(false);
 		        sap.ui.getCore().byId("idHeaderLvl").setVisible(true);
 		        sap.ui.getCore().byId("idHeaderIco").setVisible(false);
 		        sap.ui.getCore().byId("idScrollBox").setVisible(true);
 		        sap.ui.getCore().byId("idMsgSnd").setVisible(true);
 		        sap.ui.getCore().byId("switchid").setVisible(false);
-
+				sap.ui.getCore().byId("cancelbutton").setVisible(true);
 		        sap.ui.getCore().byId("settingbutton").setTooltip("Settings");
 		        sap.ui.getCore().byId("settingbutton").setIcon('sap-icon://action-settings');
 	

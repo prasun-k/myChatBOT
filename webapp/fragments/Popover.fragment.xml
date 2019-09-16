@@ -21,7 +21,7 @@
 				<contentRight>
 					<HBox id="idCmnBtn">
 						<Button class="clsBtn" id="settingbutton" tooltip="Settings" icon="sap-icon://action-settings" press="handleSettingsButton" />
-						<Button class="clsBtn" tooltip="Close" icon="sap-icon://sys-cancel-2" press="handleCloseButton" />
+						<Button class="clsBtn" id="cancelbutton"  tooltip="Close" icon="sap-icon://sys-cancel-2" press="handleCloseButton" />
 					</HBox>
 					<!--<HBox id="idSetBtn" visible="false">
 						<Button class="clsBtn" tooltip="Save Settings" icon="sap-icon://save" press="saveSettings" />
@@ -44,8 +44,8 @@
 				alignContent="Center">
 				
 				<l:VerticalLayout class="sapUiContentPadding">
-					<Image class="clsWelcomeBotImg" tooltip="Robot" src="images/robot.png" />
-					<Text class="clsWelcomeBotTxt" text="Hi there! I'm Kong, your virtual assistant. Thanks for bringing me alive. How can I help you?" />
+					<Image class="clsWelcomeBotImg" id="statimg" tooltip="Robot" src="images/robot.png" />
+					<Text class="clsWelcomeBotTxt" id="stattext" text="Hi there! I'm Kong, your virtual assistant. Thanks for bringing me alive. How can I help you?" />
 				</l:VerticalLayout>
 				
 			</FlexBox>
