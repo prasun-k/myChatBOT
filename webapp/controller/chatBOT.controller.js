@@ -40,7 +40,7 @@ sap.ui.define([
 		},
 		handleSettingsButton: function (oEvent) {
 			var tooltip = sap.ui.getCore().byId("settingbutton")._getTooltip();
-			if(tooltip==='Settings')
+			if(tooltip === "Settings")
 			{ //alert(tooltip);
 				sap.ui.getCore().byId("welcomeContainer").setVisible(false);
 		        sap.ui.getCore().byId("chatWindowContainer").setVisible(false);
@@ -59,10 +59,11 @@ sap.ui.define([
 		        //sap.ui.getCore().byId("setback").setVisible(true);
 		        sap.ui.getCore().byId("cancelbutton").setVisible(false);
 		        sap.ui.getCore().byId("settingbutton").setTooltip("back");
-		        sap.ui.getCore().byId("settingbutton").setIcon('sap-icon://nav-back');
+		        sap.ui.getCore().byId("settingbutton").setIcon("sap-icon://nav-back");
 			}
 			else
 			{ //alert(tooltip);
+			
 				sap.ui.getCore().byId("welcomeContainer").setVisible(true);
 		        sap.ui.getCore().byId("chatWindowContainer").setVisible(true);
 		        //sap.ui.getCore().byId("settingWindowContainer").setVisible(false);
@@ -79,7 +80,12 @@ sap.ui.define([
 		        sap.ui.getCore().byId("switchid").setVisible(false);
 				sap.ui.getCore().byId("cancelbutton").setVisible(true);
 		        sap.ui.getCore().byId("settingbutton").setTooltip("Settings");
-		        sap.ui.getCore().byId("settingbutton").setIcon('sap-icon://action-settings');
+		        sap.ui.getCore().byId("settingbutton").setIcon("sap-icon://action-settings");
+		        
+		        /*	var scrollingElement = document.querySelector(".chatWindowContainer");
+					$(scrollingElement).animate({
+					   scrollTop: scrollingElement.scrollHeight
+					}, 500);*/
 	
 			}
 			
@@ -97,8 +103,8 @@ sap.ui.define([
 	        sap.ui.getCore().byId("idMsgSnd").setVisible(true);
 			
 			var messageINP = oEvent.getSource().getValue();
-			messageINP = messageINP.replace(/^\s+|\s+$/g,'');
-			if(messageINP == "") return;
+			messageINP = messageINP.replace(/^\s+|\s+$/g,"");
+			if(messageINP == "") {return;}
 			
 			this.createMsgObj(messageINP, "UserReq");
 			
@@ -119,7 +125,7 @@ sap.ui.define([
 			var rspHboxox = new sap.m.VBox({
 			});
 			
-			if(msgType == 'BotReq')
+			if(msgType == "BotReq")
 			{
 				rspHboxox.addStyleClass("BOTContent");
 				var rsptxt = new sap.m.Text({
@@ -152,14 +158,14 @@ sap.ui.define([
 			var oData = oModel.getData();
 			oModel.setData(oData);
 			
-			var sound = "sound/399191_5549581-lq.mp3";
+			/*var sound = "sound/399191_5549581-lq.mp3";
 			var playAudio = this.getView().getModel("oModel").getData().items.audio;
 			if(playAudio)
 			{
 				new Audio(sound).play();
-			}
+			}*/
 			
-			if(msgType == "UserReq") this.checkChat(msg);
+			if(msgType == "UserReq") {this.checkChat(msg);}
 			
 			/*var lastItem = oList.getItems()[oList.getItems().length-1]; 
 			var oScrollContainer = sap.ui.getCore().byId("scrollBOT");
@@ -169,9 +175,10 @@ sap.ui.define([
 		
 		checkChat: function(msg) {
 			var that = this;
-			setTimeout(function(){
+			that.answer(msg);
+			/*setTimeout(function(){
 		    	that.answer(msg);
-			}, 1000);
+			}, 1000);*/
 		},
 		
 		answer: function(msg) {
@@ -193,15 +200,15 @@ sap.ui.define([
 			                ];
 			// </brain>
 			
-			for(var i=0; i<topicJSON.length; i++)
+			for(var i = 0; i < topicJSON.length; i++)
 			{
 			    if( regTopic.test( topicJSON[i].ask ) ) {
-			      console.log(topicJSON[i].ask + ' is the same like ' + lastMeMessage);
+			      console.log(topicJSON[i].ask + " is the same like " + lastMeMessage);
 			      topicSel = i;
 			      break;
 			    }
 			    else{
-			      console.log(topicJSON[i].ask + ' is NOT the same like ' + lastMeMessage);
+			      console.log(topicJSON[i].ask + " is NOT the same like " + lastMeMessage);
 			    }
 		    }
 			
@@ -211,7 +218,7 @@ sap.ui.define([
 			//Find answer in selected JSON
 			if(topicSel != null)
 			{
-		    	var selectedAnswers = topicJSON[ topicSel ]['ans'];
+		    	var selectedAnswers = topicJSON[ topicSel ].ans;
 		    	//var finAnswer = selectedAnswers[ this.getRandomInt(0, selectedAnswers.length-1) ];
 		    	var finAnswer = selectedAnswers[0];
 		    
@@ -240,8 +247,8 @@ sap.ui.define([
 		parseOptText: function (oEvent) {
 			
 			var messageINP = oEvent.getSource().getText();
-			messageINP = messageINP.replace(/^\s+|\s+$/g,'');
-			if(messageINP == "") return;
+			messageINP = messageINP.replace(/^\s+|\s+$/g,"");
+			if(messageINP == "") {return;}
 			
 			this.createMsgObj(messageINP, "UserReq");
 
@@ -273,8 +280,55 @@ sap.ui.define([
 	        
 		},
 		handleColorSelect: function (oEvent) {
-			sap.m.MessageToast.show("Color Selected: value - " + oEvent.getParameter("value") +
-				", \n defaultAction - " + oEvent.getParameter("defaultAction"));
+			/*sap.m.MessageToast.show("Color Selected: value - " + oEvent.getParameter("value") +
+				", \n defaultAction - " + oEvent.getParameter("defaultAction"));*/
+			var color=  oEvent.getParameter("value");
+			var style = document.createElement("style");
+			style.type = "text/css";
+			style.innerHTML = ".sapMText { color: "+color+" !important; }";
+			document.getElementsByTagName('head')[0].appendChild(style);
+			sap.ui.getCore().byId("list1").addStyleClass("sapMText");
+			
+		},
+		
+		handleFontSelect: function (oEvent) {
+			
+			//sap.m.MessageToast.show("Font Selected: value - " + oEvent.oSource.mProperties.alt);
+			var font = oEvent.oSource.mProperties.alt;
+			var style = document.createElement("style");
+			style.type = "text/css";
+			style.innerHTML = ".sapMText { font-size: "+font+" !important; }";
+			document.getElementsByTagName('head')[0].appendChild(style);
+			sap.ui.getCore().byId("list1").addStyleClass("sapMText");
+		},
+		
+		onParentClicked: function(oEvent) {
+			var oSelected = oEvent.mParameters.selected;
+			var style = document.createElement("style");
+			style.type = "text/css";
+			if(oSelected == true)
+			{
+				style.innerHTML = ".clsHLayout .sapMColorPalette .sapMColorPaletteSquare { opacity: 0.5 !important; }";
+				style.innerHTML += ".clsFontTypes .sapMImg { opacity: 0.5 !important; }";
+				document.getElementsByTagName('head')[0].appendChild(style);
+				sap.ui.getCore().byId("hasAudio").setEnabled(false);
+				sap.ui.getCore().byId("smallimg").detachPress(this.handleFontSelect);
+				sap.ui.getCore().byId("normalimg").detachPress(this.handleFontSelect);
+				sap.ui.getCore().byId("largeimg").detachPress(this.handleFontSelect);
+				sap.ui.getCore().byId("colorfunc").detachColorSelect(this.handleColorSelect);
+			}
+			else
+			{
+				
+				style.innerHTML = ".clsHLayout .sapMColorPalette .sapMColorPaletteSquare { opacity: 1 !important;cursor: pointer; }";
+				style.innerHTML += ".clsFontTypes .sapMImg { opacity: 1 !important;cursor: pointer; }";
+				document.getElementsByTagName('head')[0].appendChild(style);
+				sap.ui.getCore().byId("hasAudio").setEnabled(true);
+				sap.ui.getCore().byId("smallimg").attachPress(this.handleFontSelect);
+				sap.ui.getCore().byId("normalimg").attachPress(this.handleFontSelect);
+				sap.ui.getCore().byId("largeimg").attachPress(this.handleFontSelect);
+				sap.ui.getCore().byId("colorfunc").attachColorSelect(this.handleColorSelect);
+			}
 		}
 	});
 });

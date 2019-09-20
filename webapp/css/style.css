@@ -248,7 +248,7 @@
 }
 
 .k-scroll-box {
-    padding: 10px 0px;
+    /*padding: 10px 0px;*/
     /*border-width: 1px 0 0;
     border-style: solid;*/
     -ms-flex: 0 0 auto;
@@ -395,12 +395,21 @@
 
 .clsFontTypes .sapMImg {
 	padding: 5px 5px;
-	cursor: pointer;
+	/*cursor: pointer;*/
 	border: 1px solid #fff;
     border-radius: 20%;
+    opacity: 0.5;
 }
 
 .clsHLayout .sapMColorPalette .sapMColorPaletteContent {
 	padding: 0px !important;
     padding-left: 20px !important;
+}
+
+.clsHLayout .sapMColorPalette .sapMColorPaletteSquare {
+	opacity: 0.5;
+}
+.defcheck{
+	float:right;
+}
 }

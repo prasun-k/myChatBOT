@@ -73,11 +73,17 @@
 				height="100%"
 				width="95%"
 				alignContent="Center">
-				
-				<l:VerticalLayout class="clsVLayout sapUiContentPadding" id="switchid">
+			
+	
+		
+				<l:VerticalLayout class="clsVLayout sapUiContentPadding" id="switchid" >
+					<l:HorizontalLayout class="clsHLayout">
+						<Label text="Default" />
+						<CheckBox selected="true" select="onParentClicked" class="defcheck"	/>
+					</l:HorizontalLayout>
 					<l:HorizontalLayout class="clsHLayout">
 						<Label text="Chat Audio" />
-						<Switch id="hasAudio" state="true">
+						<Switch id="hasAudio" state="true" enabled="false">
 							<layoutData>
 								<FlexItemData growFactor="1" />
 							</layoutData>
@@ -87,15 +93,15 @@
 					<l:HorizontalLayout class="clsHLayout">
 						<Label text="Font Size" />
 						<HBox class="clsFontTypes">
-							<Image class="abc" tooltip="Small" src="images/font_small.png" />
-							<Image class="abc" tooltip="Normal" src="images/font_normal.png" />
-							<Image class="abc" tooltip="Large" src="images/font_large.png" />
+							<Image alt="small" id="smallimg" class="abc" tooltip="Small" src="images/font_small.png" />
+							<Image alt="medium" id="normalimg" class="abc" tooltip="Normal" src="images/font_normal.png" />
+							<Image alt="large" id="largeimg" class="abc" tooltip="Large" src="images/font_large.png" />
 						</HBox>
 					</l:HorizontalLayout>
 					
 					<l:HorizontalLayout class="clsHLayout">
 						<Label text="Font Color" />
-						<ColorPalette colors="#292f36,#4ecdc4,#3a506b,#ffffff,red,yellow,green,blue,violet,darkgray" colorSelect="handleColorSelect" />
+						<ColorPalette colors="#292f36,#4ecdc4,#3a506b,#ffffff,red,yellow,green,blue,violet,darkgray" id="colorfunc" />
 					</l:HorizontalLayout>
 					
 					<!--<l:HorizontalLayout class="clsHLayout">
