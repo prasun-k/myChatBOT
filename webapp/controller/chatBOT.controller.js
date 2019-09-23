@@ -13,6 +13,13 @@ sap.ui.define([
 				}
 			});
 			this.getView().setModel(msgModel, "oModel");
+			
+			var chatModel = new sap.ui.model.json.JSONModel({
+				"items": {
+					"audio": true
+				}
+			});
+			sap.ui.getCore().setModel(chatModel, "chatBotModel");
 		},
 		onChatPress: function (oEvent) {
 			if (!this._oPopover) {
@@ -64,28 +71,32 @@ sap.ui.define([
 			else
 			{ //alert(tooltip);
 			
-				sap.ui.getCore().byId("welcomeContainer").setVisible(true);
+				sap.ui.getCore().byId("welcomeContainer").setVisible(false);
 		        sap.ui.getCore().byId("chatWindowContainer").setVisible(true);
-		        //sap.ui.getCore().byId("settingWindowContainer").setVisible(false);
+		        sap.ui.getCore().byId("settingWindowContainer").setVisible(false);
 		        
 		        //sap.ui.getCore().byId("idCmnBtn").setVisible(false);
 		        //sap.ui.getCore().byId("idSetBtn").setVisible(true);
 		        
 		        sap.ui.getCore().byId("statimg").setVisible(false);
 		        sap.ui.getCore().byId("stattext").setVisible(false);
-		        sap.ui.getCore().byId("idHeaderLvl").setVisible(true);
-		        sap.ui.getCore().byId("idHeaderIco").setVisible(false);
+		        
+		        sap.ui.getCore().byId("idHeaderLvl").setVisible(false);
+		        sap.ui.getCore().byId("idHeaderIco").setVisible(true);
+		        
 		        sap.ui.getCore().byId("idScrollBox").setVisible(true);
 		        sap.ui.getCore().byId("idMsgSnd").setVisible(true);
+		        
 		        sap.ui.getCore().byId("switchid").setVisible(false);
 				sap.ui.getCore().byId("cancelbutton").setVisible(true);
+				
 		        sap.ui.getCore().byId("settingbutton").setTooltip("Settings");
 		        sap.ui.getCore().byId("settingbutton").setIcon("sap-icon://action-settings");
 		        
-		        /*	var scrollingElement = document.querySelector(".chatWindowContainer");
-					$(scrollingElement).animate({
-					   scrollTop: scrollingElement.scrollHeight
-					}, 500);*/
+		        //var scrollingElement = document.querySelector(".chatWindowContainer");
+				$(this.scrollingElement).animate({
+					scrollTop: this.scrollHeight
+				}, 500);
 	
 			}
 			
@@ -158,12 +169,12 @@ sap.ui.define([
 			var oData = oModel.getData();
 			oModel.setData(oData);
 			
-			/*var sound = "sound/399191_5549581-lq.mp3";
-			var playAudio = this.getView().getModel("oModel").getData().items.audio;
+			var sound = "sound/399191_5549581-lq.mp3";
+			var playAudio = sap.ui.getCore().getModel("chatBotModel").getData().items.audio;
 			if(playAudio)
 			{
 				new Audio(sound).play();
-			}*/
+			}
 			
 			if(msgType == "UserReq") {this.checkChat(msg);}
 			
@@ -232,10 +243,15 @@ sap.ui.define([
 			sap.ui.getCore().byId("chat").setValue("");
 			sap.ui.getCore().byId("chat").setPlaceholder("Your message...");
 			
-			var scrollingElement = document.querySelector(".chatWindowContainer");
-			$(scrollingElement).animate({
-			   scrollTop: scrollingElement.scrollHeight
-			}, 500);
+			this.scrollingElement = document.querySelector(".chatWindowContainer");
+			
+			if(this.scrollingElement)
+			{
+				this.scrollHeight = this.scrollingElement.scrollHeight;
+				$(this.scrollingElement).animate({
+				   scrollTop: this.scrollHeight
+				}, 500);
+			}
 		},
 		
 		getRandomInt: function(min, max) {
@@ -279,6 +295,12 @@ sap.ui.define([
 	        sap.ui.getCore().byId("idMsgSnd").setVisible(true);
 	        
 		},
+		handleAudioSetting: function() {
+			var hasAudio = sap.ui.getCore().byId("hasAudio").getState();
+			sap.ui.getCore().getModel("chatBotModel").setProperty("/items/audio",hasAudio);
+			//this._playAudio = false;
+		},
+		
 		handleColorSelect: function (oEvent) {
 			/*sap.m.MessageToast.show("Color Selected: value - " + oEvent.getParameter("value") +
 				", \n defaultAction - " + oEvent.getParameter("defaultAction"));*/
@@ -295,9 +317,23 @@ sap.ui.define([
 			
 			//sap.m.MessageToast.show("Font Selected: value - " + oEvent.oSource.mProperties.alt);
 			var font = oEvent.oSource.mProperties.alt;
+			var fontSize = "";
+			
+			if(font == "small")
+			{
+				fontSize = "12px";
+			}
+			else if(font == "medium")
+			{
+				fontSize = "14px";
+			}
+			else if(font == "large")
+			{
+				fontSize = "16px";
+			}
 			var style = document.createElement("style");
 			style.type = "text/css";
-			style.innerHTML = ".sapMText { font-size: "+font+" !important; }";
+			style.innerHTML = ".sapMText { font-size: "+fontSize+" !important; }";
 			document.getElementsByTagName('head')[0].appendChild(style);
 			sap.ui.getCore().byId("list1").addStyleClass("sapMText");
 		},
@@ -309,13 +345,27 @@ sap.ui.define([
 			if(oSelected == true)
 			{
 				style.innerHTML = ".clsHLayout .sapMColorPalette .sapMColorPaletteSquare { opacity: 0.5 !important; }";
-				style.innerHTML += ".clsFontTypes .sapMImg { opacity: 0.5 !important; }";
+				//style.innerHTML = ".clsHLayout .sapMColorPalette .sapMColorPaletteSquare:hover { margin: 0.3125rem; width: 1.75rem; height: 1.75rem; }";
+				//style.innerHTML = ".clsHLayout .sapMColorPalette .sapMColorPaletteSquare:hover>div { border: 0px; }";				
+				style.innerHTML += ".clsFontTypes .sapMImg { opacity: 0.5 !important;cursor: auto; }";
 				document.getElementsByTagName('head')[0].appendChild(style);
 				sap.ui.getCore().byId("hasAudio").setEnabled(false);
+				sap.ui.getCore().byId("hasAudio").detachChange(this.handleAudioSetting);
 				sap.ui.getCore().byId("smallimg").detachPress(this.handleFontSelect);
 				sap.ui.getCore().byId("normalimg").detachPress(this.handleFontSelect);
 				sap.ui.getCore().byId("largeimg").detachPress(this.handleFontSelect);
 				sap.ui.getCore().byId("colorfunc").detachColorSelect(this.handleColorSelect);
+				
+				//Revert Changes (Default mode)
+				
+				sap.ui.getCore().getModel("chatBotModel").setProperty("/items/audio",true);
+				
+				var style = document.createElement("style");
+				style.type = "text/css";
+				style.innerHTML = ".sapMText { font-size: 0.875rem !important; }";
+				style.innerHTML += ".sapMText { color: #000 !important; }";
+				document.getElementsByTagName('head')[0].appendChild(style);
+				sap.ui.getCore().byId("list1").addStyleClass("sapMText");
 			}
 			else
 			{
@@ -324,6 +374,7 @@ sap.ui.define([
 				style.innerHTML += ".clsFontTypes .sapMImg { opacity: 1 !important;cursor: pointer; }";
 				document.getElementsByTagName('head')[0].appendChild(style);
 				sap.ui.getCore().byId("hasAudio").setEnabled(true);
+				sap.ui.getCore().byId("hasAudio").attachChange(this.handleAudioSetting);
 				sap.ui.getCore().byId("smallimg").attachPress(this.handleFontSelect);
 				sap.ui.getCore().byId("normalimg").attachPress(this.handleFontSelect);
 				sap.ui.getCore().byId("largeimg").attachPress(this.handleFontSelect);
