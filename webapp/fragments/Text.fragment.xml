@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" id="chatBotFragment">
+<VBox class="sapUiSmallMargin">
+		<Text text="{/txtMsg}" />
+	</VBox>
+	</core:FragmentDefinition>

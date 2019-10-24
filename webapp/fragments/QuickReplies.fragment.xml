@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" id="chatBotFragment">
+<VBox class="sapUiSmallMargin">
+<Button type="Accept" text="{/firstbuttitle}"   tooltip="{/firstbuttitle}" />
+<Button type="Reject" text="{/secbuttitle}"   tooltip="{/secbuttitle}" />
+	</VBox>
+
+	</core:FragmentDefinition>

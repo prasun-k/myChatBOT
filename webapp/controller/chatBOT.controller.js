@@ -129,7 +129,7 @@ sap.ui.define([
 
 		},
 		
-		createMsgObj: function (msg, msgType) {
+		createMsgObj: function (msg, msgType,caiType) {
 			var oList = sap.ui.getCore().byId("list1");
 			
 			var CustomListItemTemplate = new sap.m.CustomListItem();
@@ -138,12 +138,51 @@ sap.ui.define([
 			
 			if(msgType == "BotReq")
 			{
-				rspHboxox.addStyleClass("BOTContent");
+				/*rspHboxox.addStyleClass("BOTContent");
 				var rsptxt = new sap.m.Text({
 					text: msg
 				});
 				rsptxt.addStyleClass("BOTTxtContent");
-				rspHboxox.addItem(rsptxt);
+				rspHboxox.addItem(rsptxt);*/
+				if(caiType==='text')
+				{
+						var chatData = {"txtMsg": msg};
+					var msgInFragment = new sap.ui.model.json.JSONModel(chatData);
+					var chatTextItem = sap.ui.xmlfragment("com.hcl.hclBOT.fragments.Text", this);
+					chatTextItem.setModel(msgInFragment);
+					rspHboxox.addStyleClass("BOTContent");
+					rspHboxox.addItem(chatTextItem);
+				}
+				else if(caiType==='quickReplies')
+				{
+					var chatData = {"firstbuttitle": msg.buttons[0].title,"firstbutval": msg.buttons[0].value,
+					"secbuttitle": msg.buttons[1].title,"secbutval": msg.buttons[1].value};
+					var msgInFragment = new sap.ui.model.json.JSONModel(chatData);
+					var chatTextItem = sap.ui.xmlfragment("com.hcl.hclBOT.fragments.QuickReplies", this);
+					chatTextItem.setModel(msgInFragment);
+					rspHboxox.addStyleClass("BOTContent");
+					rspHboxox.addItem(chatTextItem);
+				}
+				else if(caiType==='card')
+				{
+					var chatData = {"cardtitle": msg.title,"cardsubtitle": msg.subtitle,"cardimageUrl": msg.imageUrl,
+					"buttitle": msg.buttons[0].title,"buttype": msg.buttons[0].type,"butval": msg.buttons[0].value};
+					var msgInFragment = new sap.ui.model.json.JSONModel(chatData);
+					var chatTextItem = sap.ui.xmlfragment("com.hcl.hclBOT.fragments.Card", this);
+					chatTextItem.setModel(msgInFragment);
+					rspHboxox.addStyleClass("BOTContent");
+					rspHboxox.addItem(chatTextItem);
+				}
+				else if(caiType==='list')
+				{
+					/*var chatData = {"cardtitle": msg.title,"cardsubtitle": msg.subtitle,"cardimageUrl": msg.imageUrl,
+					"buttitle": msg.buttons[0].title,"buttype": msg.buttons[0].type,"butval": msg.buttons[0].value};*/
+					var msgInFragment = new sap.ui.model.json.JSONModel(msg);
+					var chatTextItem = sap.ui.xmlfragment("com.hcl.hclBOT.fragments.List", this);
+					chatTextItem.setModel(msgInFragment);
+					rspHboxox.addStyleClass("BOTContent");
+					rspHboxox.addItem(chatTextItem);
+				}
 			}
 			else
 			{
@@ -199,19 +238,16 @@ sap.ui.define([
 			console.log("Last Message from Me: " + lastMeMessage);
 			
 			var regTopic = new RegExp(lastMeMessage, "gmi");
-			var topicSel = null;
+			var caiRet = null;
 			
 			// <brain>
 			// THIS IS A BRAIN OF BOT
-			var topicJSON = [{ask:"hi", ans:["Hello :) Nice to meet you"]},
-			                 {ask:"hello", ans:["Hello there! How are you doing today?"]},
-			                 {ask:"how are you?", ans:["Good, and you?"]},
-			                 {ask:"fine", ans:["Good to hear that."]},
-			                 {ask:"bye", ans:["Bye, see you :)"]}
-			                ];
+		/*	var topicJSON = [{ask:"hi", ans:["Hello :) Nice to meet you"]},
+			                 {ask:"hello", ans:["Hello there! How are you doing today?"]}
+			                ];*/
 			// </brain>
 			
-			for(var i = 0; i < topicJSON.length; i++)
+			/*for(var i = 0; i < topicJSON.length; i++)
 			{
 			    if( regTopic.test( topicJSON[i].ask ) ) {
 			      console.log(topicJSON[i].ask + " is the same like " + lastMeMessage);
@@ -238,7 +274,89 @@ sap.ui.define([
 			else
 			{
 		    	this.createMsgObj("I don't know what you want!!" ,"BotReq");
-			}
+			}*/
+			
+			/*var caiRet = [{
+					      "type": "text",
+					      "delay": 2,
+					      "content": "ngngn",
+					    }
+			                ];*/
+			/*var caiRet = [
+							{
+							    "type": "quickReplies",
+							    "content": {
+							      "title": "TITLE",
+							      "buttons": [
+							        {
+							          "title": "Accept",
+							          "value": "1"
+							        },
+							        {
+							          "title": "Reject",
+							          "value": "0"
+							        }
+							      ]
+							    }
+							  }
+			                ];*/
+			/*var caiRet = [
+							{"type": "card",
+						    "content": {
+						      "title": "CARD_TITLE",
+						      "subtitle": "CARD_SUBTITLE",
+						      "imageUrl": "sap-icon://bus-public-transport",
+						      "buttons": [
+						        {
+						          "title": "Book",
+						          "type": "Emphasized",
+						          "value": "1"
+						        }
+						      ]
+						    }}
+			                ];*/
+            var caiRet = [
+			{"type": "list",
+		    "content": {
+		      "elements": [
+		        {
+		          "title": "ELEM_1_TITLE",
+		          "imageUrl": "sap-icon://bus-public-transport",
+		          "subtitle": "ELEM_1_SUBTITLE",
+		          "buttons": [
+		            {
+		              "title": "BUTTON_1_TITLE",
+		              "type": "BUTTON_TYPE",
+		              "value": "BUTTON_1_VALUE"
+		            }
+		          ]
+		        },
+		        {
+		          "title": "ELEM_2_TITLE",
+		          "imageUrl": "sap-icon://bus-public-transport",
+		          "subtitle": "ELEM_2_SUBTITLE",
+		          "buttons": [
+		            {
+		              "title": "BUTTON_2_TITLE",
+		              "type": "BUTTON_TYPE",
+		              "value": "BUTTON_2_VALUE"
+		            }
+		          ]
+		        }
+		      ],
+		      "buttons": [
+		        {
+		          "title": "BUTTON_1_TITLE",
+		          "type": "BUTTON_TYPE",
+		          "value": "BUTTON_1_VALUE"
+		        }
+		      ]
+		    }}
+            ];
+		
+			var caiRetType=caiRet[0].type;
+			var finAnswer = caiRet[0].content;
+		    this.createMsgObj(finAnswer ,"BotReq",caiRetType);
 			
 			sap.ui.getCore().byId("chat").setValue("");
 			sap.ui.getCore().byId("chat").setPlaceholder("Your message...");

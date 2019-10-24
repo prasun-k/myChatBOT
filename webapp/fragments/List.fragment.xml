@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	>
+
+<List id="holidayList"  selectionChange="onListSelect"  items="{/elements}">
+				<items>
+					<ObjectListItem  id="invoiceItem" type="Active" press="handleListItemPress" title="{/elements>title}" 
+				    	number="$ 2">
+							   <firstStatus>
+					<ObjectStatus
+						text="ghg"
+						/>
+				</firstStatus>
+			          	<attributes>
+			               <ObjectAttribute text="dfgfh" />
+			            </attributes>
+		        	</ObjectListItem>
+		        </items>
+			</List>
+			</core:FragmentDefinition>
